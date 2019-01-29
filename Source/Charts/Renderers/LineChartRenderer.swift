@@ -181,6 +181,9 @@ open class LineChartRenderer: LineRadarRenderer
         context.beginPath()
         context.addPath(cubicPath)
         context.setStrokeColor(drawingColor.cgColor)
+        if let path = context.path {
+          dataProvider.pathUpdated(path: path)
+        }
         context.strokePath()
         
         context.restoreGState()
@@ -248,6 +251,9 @@ open class LineChartRenderer: LineRadarRenderer
         context.beginPath()
         context.addPath(cubicPath)
         context.setStrokeColor(drawingColor.cgColor)
+        if let path = context.path {
+          dataProvider.pathUpdated(path: path)
+        }
         context.strokePath()
         
         context.restoreGState()
@@ -375,6 +381,9 @@ open class LineChartRenderer: LineRadarRenderer
                 
                 // get the color that is set for this line-segment
                 context.setStrokeColor(dataSet.color(atIndex: j).cgColor)
+                if let path = context.path {
+                  dataProvider.pathUpdated(path: path)
+                }
                 context.strokeLineSegments(between: _lineSegments)
             }
         }
@@ -430,6 +439,9 @@ open class LineChartRenderer: LineRadarRenderer
                 if !firstPoint
                 {
                     context.setStrokeColor(dataSet.color(atIndex: 0).cgColor)
+                    if let path = context.path {
+                      dataProvider.pathUpdated(path: path)
+                    }
                     context.strokePath()
                 }
             }

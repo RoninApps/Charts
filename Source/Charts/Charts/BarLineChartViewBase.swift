@@ -25,7 +25,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
     
     /// flag that indicates if auto scaling on the y axis is enabled
     private var _autoScaleMinMaxEnabled = false
-    
+  
     private var _pinchZoomEnabled = false
     private var _doubleTapToZoomEnabled = true
     private var _dragXEnabled = true
@@ -39,7 +39,13 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
     
     @objc open var borderColor = NSUIColor.black
     @objc open var borderLineWidth: CGFloat = 1.0
-    
+  
+    /// flags indicating if the view should add shadow and glow layers
+    @objc open var shadowEnabled = false
+    @objc open var glowLayerEnabled = false
+    @objc open var glowAnimationEnabled = false
+    @objc open var pathAnimationEnabled = false
+
     /// flag indicating if the grid background should be drawn or not
     @objc open var drawGridBackgroundEnabled = false
     
@@ -1680,7 +1686,35 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
     {
         return drawGridBackgroundEnabled
     }
-    
+  
+    /// **default**: false
+    /// `true` if drawing a shadow is enabled, `false` ifnot.
+    @objc open var isShadowEnabled: Bool
+    {
+      return shadowEnabled
+    }
+  
+    /// **default**: false
+    /// `true` if a glowing layer should be added on top of the path, `false` ifnot.
+    @objc open var isGlowLayerEnabled: Bool
+    {
+      return glowLayerEnabled
+    }
+  
+    /// **default**: false
+    /// `true` if the path and the glowing layer should be animated, `false` ifnot.
+    @objc open var isGlowAnimationEnabled: Bool
+    {
+      return glowAnimationEnabled
+    }
+  
+    /// **default**: false
+    /// `true` if the path line should be animated, `false` ifnot.
+    @objc open var isPathAnimationEnabled: Bool
+    {
+      return pathAnimationEnabled
+    }
+  
     /// **default**: false
     /// `true` if drawing the borders rectangle is enabled, `false` ifnot.
     @objc open var isDrawBordersEnabled: Bool

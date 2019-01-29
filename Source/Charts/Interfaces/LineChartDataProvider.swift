@@ -18,4 +18,6 @@ public protocol LineChartDataProvider: BarLineScatterCandleBubbleChartDataProvid
     var lineData: LineChartData? { get }
     
     func getAxis(_ axis: YAxis.AxisDependency) -> YAxis
+  
+    func pathUpdated(path: CGPath)
 }

@@ -15,6 +15,10 @@ import CoreGraphics
 /// This chart class allows the combination of lines, bars, scatter and candle data all displayed in one chart area.
 open class CombinedChartView: BarLineChartViewBase, CombinedChartDataProvider
 {
+    public func pathUpdated(path: CGPath) {
+     debugPrint("Must implement pathUpdated in CombinedChartView.swift")
+    }
+  
     /// the fill-formatter used for determining the position of the fill-line
     internal var _fillFormatter: IFillFormatter!
     
