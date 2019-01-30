@@ -19,8 +19,9 @@ open class LineChartView: BarLineChartViewBase, LineChartDataProvider
     fileprivate var lineLayer: CAShapeLayer!
     fileprivate var glowLayer: CAShapeLayer!
   
+    // The second color in the array is the color of the line layer
     fileprivate var linePathColor: UIColor {
-        guard let lineColor = lineData?.dataSets.first?.colors.first else {
+        guard let lineColor = lineData?.dataSets.first?.colors[1] else {
           return .clear
         }
         return lineColor
@@ -68,7 +69,7 @@ extension LineChartView {
       
       if isShadowEnabled {
         lineLayer.strokeColor = UIColor.white.cgColor
-        lineLayer.shadowColor = UIColor.blue.cgColor // UIColor.white.cgColor
+        lineLayer.shadowColor = linePathColor.cgColor
         lineLayer.shadowOffset = .zero
         lineLayer.shadowRadius = 10
         lineLayer.shadowOpacity = 1.0
@@ -85,8 +86,8 @@ extension LineChartView {
       glowLayer.fillColor = UIColor.clear.cgColor
       glowLayer.path = path
       if isShadowEnabled {
-        glowLayer.strokeColor = UIColor.blue.cgColor
-        glowLayer.shadowColor = UIColor.blue.cgColor
+        glowLayer.strokeColor = linePathColor.cgColor
+        glowLayer.shadowColor = linePathColor.cgColor
         glowLayer.shadowOffset = .zero
         glowLayer.shadowRadius = 10
         glowLayer.shadowOpacity = 1.0
