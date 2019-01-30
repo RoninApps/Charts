@@ -49,7 +49,7 @@ class CubicLineChartViewController: DemoBaseViewController {
         chartView.setViewPortOffsets(left: 0, top: 20, right: 0, bottom: 0)
         chartView.backgroundColor = UIColor(red: 104/255, green: 241/255, blue: 175/255, alpha: 1)
         
-        chartView.dragEnabled = true
+        //chartView.dragEnabled = true
         chartView.setScaleEnabled(true)
         chartView.pinchZoomEnabled = false
         chartView.maxHighlightDistance = 300
@@ -95,10 +95,10 @@ class CubicLineChartViewController: DemoBaseViewController {
         set1.lineWidth = 1.8
         set1.circleRadius = 4
         set1.setCircleColor(.white)
-        set1.highlightColor = UIColor(red: 244/255, green: 117/255, blue: 117/255, alpha: 1)
+        set1.highlightColor = .red// UIColor(red: 244/255, green: 117/255, blue: 117/255, alpha: 1)
         set1.fillColor = .white
         set1.fillAlpha = 1
-        set1.drawHorizontalHighlightIndicatorEnabled = false
+        set1.drawHorizontalHighlightIndicatorEnabled = true
         set1.fillFormatter = CubicLineSampleFillFormatter()
         
         let data = LineChartData(dataSet: set1)

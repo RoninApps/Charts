@@ -21,10 +21,14 @@ open class LineChartView: BarLineChartViewBase, LineChartDataProvider
   
     // The second color in the array is the color of the line layer
     fileprivate var linePathColor: UIColor {
-        guard let lineColor = lineData?.dataSets.first?.colors[1] else {
+        guard let allColors = lineData?.dataSets.first?.colors else {
           return .clear
         }
-        return lineColor
+        if allColors.indices.contains(1) {
+          return allColors[1]
+        } else {
+          return .clear
+      }
     }
   
     internal override func initialize()
