@@ -139,7 +139,23 @@ open class ChartViewBase: NSUIView, ChartDataProvider, AnimatorDelegate
     
     /// An extra offset to be appended to the viewport's left
     @objc open var extraLeftOffset: CGFloat = 0.0
-    
+  
+    // The layers than can be additionally created
+    // In order for them to be useful, the colors array in the dataset must have its first element clear
+    @objc open var lineLayer: CAShapeLayer!
+    @objc open var glowLayer: CAShapeLayer!
+    // The second color in the array is the color of the line layer
+    @objc open var lineLayerPathColor: UIColor {
+      guard let allColors = data?.dataSets.first?.colors else {
+        return .clear
+      }
+      if allColors.indices.contains(1) {
+        return allColors[1]
+      } else {
+        return .clear
+      }
+    }
+  
     @objc open func setExtraOffsets(left: CGFloat, top: CGFloat, right: CGFloat, bottom: CGFloat)
     {
         extraLeftOffset = left
@@ -233,10 +249,18 @@ open class ChartViewBase: NSUIView, ChartDataProvider, AnimatorDelegate
         _offsetsCalculated = false
         _indicesToHighlight.removeAll()
         lastHighlighted = nil
-    
+        clearLayerPaths()
         setNeedsDisplay()
     }
-    
+  
+    @objc open func clearLayerPaths()
+    {
+      lineLayer?.removeFromSuperlayer()
+      glowLayer?.removeFromSuperlayer()
+      lineLayer = nil
+      glowLayer = nil
+    }
+  
     /// Removes all DataSets (and thereby Entries) from the chart. Does not set the data object to nil. Also refreshes the chart by calling setNeedsDisplay().
     @objc open func clearValues()
     {

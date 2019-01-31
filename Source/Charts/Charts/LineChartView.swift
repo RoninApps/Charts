@@ -16,21 +16,6 @@ import CoreGraphics
 open class LineChartView: BarLineChartViewBase, LineChartDataProvider
 {
   
-    fileprivate var lineLayer: CAShapeLayer!
-    fileprivate var glowLayer: CAShapeLayer!
-  
-    // The second color in the array is the color of the line layer
-    fileprivate var linePathColor: UIColor {
-        guard let allColors = lineData?.dataSets.first?.colors else {
-          return .clear
-        }
-        if allColors.indices.contains(1) {
-          return allColors[1]
-        } else {
-          return .clear
-      }
-    }
-  
     internal override func initialize()
     {
         super.initialize()
@@ -42,9 +27,9 @@ open class LineChartView: BarLineChartViewBase, LineChartDataProvider
     
     open var lineData: LineChartData? { return _data as? LineChartData }
   
+    // Retrieve calculated path
     public func pathUpdated(path: CGPath) {
-      // retrieve calculated path
-      // clear context from current lines and re draw using layers
+      guard isGlowLayerEnabled else { return }
       guard lineLayer == nil, glowLayer == nil else {
         return
       }
@@ -58,13 +43,6 @@ open class LineChartView: BarLineChartViewBase, LineChartDataProvider
 }
 
 extension LineChartView {
-    func clearPaths() {
-      lineLayer?.removeFromSuperlayer()
-      glowLayer?.removeFromSuperlayer()
-      lineLayer = nil
-      glowLayer = nil
-    }
-  
     func drawPath(path: CGPath) {
       lineLayer.frame = self.bounds
       lineLayer.lineWidth = 2.0
@@ -73,12 +51,12 @@ extension LineChartView {
       
       if isShadowEnabled {
         lineLayer.strokeColor = UIColor.white.cgColor
-        lineLayer.shadowColor = linePathColor.cgColor
+        lineLayer.shadowColor = lineLayerPathColor.cgColor
         lineLayer.shadowOffset = .zero
         lineLayer.shadowRadius = 10
         lineLayer.shadowOpacity = 1.0
       } else {
-        lineLayer.strokeColor = linePathColor.cgColor
+        lineLayer.strokeColor = lineLayerPathColor.cgColor
       }
       self.layer.addSublayer(lineLayer)
     }
@@ -90,8 +68,8 @@ extension LineChartView {
       glowLayer.fillColor = UIColor.clear.cgColor
       glowLayer.path = path
       if isShadowEnabled {
-        glowLayer.strokeColor = linePathColor.cgColor
-        glowLayer.shadowColor = linePathColor.cgColor
+        glowLayer.strokeColor = lineLayerPathColor.cgColor
+        glowLayer.shadowColor = lineLayerPathColor.cgColor
         glowLayer.shadowOffset = .zero
         glowLayer.shadowRadius = 10
         glowLayer.shadowOpacity = 1.0

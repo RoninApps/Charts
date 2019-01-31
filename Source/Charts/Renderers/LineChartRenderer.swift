@@ -169,15 +169,14 @@ open class LineChartRenderer: LineRadarRenderer
         }
         
         context.saveGState()
-        
+      
         if dataSet.isDrawFilledEnabled
         {
-            // Copy this path because we make changes to it
-            let fillPath = cubicPath.mutableCopy()
-            
-            drawCubicFill(context: context, dataSet: dataSet, spline: fillPath!, matrix: valueToPixelMatrix, bounds: _xBounds)
+          // Copy this path because we make changes to it
+          let fillPath = cubicPath.mutableCopy()
+          
+          drawCubicFill(context: context, dataSet: dataSet, spline: fillPath!, matrix: valueToPixelMatrix, bounds: _xBounds)
         }
-        
         context.beginPath()
         context.addPath(cubicPath)
         context.setStrokeColor(drawingColor.cgColor)
@@ -185,7 +184,7 @@ open class LineChartRenderer: LineRadarRenderer
           dataProvider.pathUpdated(path: path)
         }
         context.strokePath()
-        
+      
         context.restoreGState()
     }
     
