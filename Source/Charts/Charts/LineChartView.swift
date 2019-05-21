@@ -105,7 +105,7 @@ extension LineChartView {
     }
   
     func startPathAnimation() {
-      guard isGlowLayerEnabled, pathAnimationEnabled else { return }
+      guard pathAnimationEnabled else { return }
       let pathAnimation = CABasicAnimation(keyPath: "strokeEnd")
       pathAnimation.duration = 1.6
       pathAnimation.fromValue = 0.0
@@ -114,6 +114,7 @@ extension LineChartView {
       pathAnimation.fillMode = .forwards
       pathAnimation.isRemovedOnCompletion = false
       lineLayer.add(pathAnimation, forKey: "path")
+      guard isGlowLayerEnabled else { return }
       glowLayer.add(pathAnimation, forKey: "path")
     }
 }
