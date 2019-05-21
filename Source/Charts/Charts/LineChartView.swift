@@ -29,13 +29,16 @@ open class LineChartView: BarLineChartViewBase, LineChartDataProvider
   
     // Retrieve calculated path
     public func pathUpdated(path: CGPath) {
-      guard isGlowLayerEnabled else { return }
       guard lineLayer == nil, glowLayer == nil else {
         return
       }
       lineLayer = CAShapeLayer()
-      glowLayer = CAShapeLayer()
       drawPath(path: path)
+      guard isGlowLayerEnabled else {
+        startPathAnimation()
+        return
+      }
+      glowLayer = CAShapeLayer()
       drawGlowPath(path: path)
       drawGlowAnimations()
       startPathAnimation()
